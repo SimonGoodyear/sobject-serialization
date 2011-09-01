@@ -39,4 +39,74 @@ private class TestStringSerializer {
 		
 	}
 	
+	private static testMethod void testString(){
+		string input = 'test, me: please';
+		string output = (string)StringSerializer.Deserialize(StringSerializer.Serialize(input));
+		
+		system.assertEquals(input, output);
+	}
+
+	private static testMethod void testBoolean(){
+		Boolean input = false;
+		Boolean output = (Boolean)StringSerializer.Deserialize(StringSerializer.Serialize(input));
+		
+		system.assertEquals(input, output);
+	}
+
+	private static testMethod void testDate(){
+		Date input = Date.today();
+		Date output = (Date)StringSerializer.Deserialize(StringSerializer.Serialize(input));
+		
+		system.assertEquals(input, output);
+	}
+
+	private static testMethod void testDatetime(){
+		Datetime input = Datetime.now();system.debug('** ' + StringSerializer.Serialize(input));
+		Datetime output = (Datetime)StringSerializer.Deserialize(StringSerializer.Serialize(input));
+		
+		system.assertEquals(input, output);
+	}
+
+	private static testMethod void testDecimal(){
+		Decimal input = 12.2;
+		Decimal output = (Decimal)StringSerializer.Deserialize(StringSerializer.Serialize(input));
+		
+		system.assertEquals(input, output);
+	}
+
+	private static testMethod void testDouble(){
+		Double input = 12.2;
+		Double output = (Double)StringSerializer.Deserialize(StringSerializer.Serialize(input));
+		
+		system.assertEquals(input, output);
+	}
+
+	private static testMethod void testLong(){
+		Long input = 122;
+		Long output = (Long)StringSerializer.Deserialize(StringSerializer.Serialize(input));
+		
+		system.assertEquals(input, output);
+	}
+
+	private static testMethod void testInteger(){
+		Integer input = 122;
+		Integer output = (Integer)StringSerializer.Deserialize(StringSerializer.Serialize(input));
+		
+		system.assertEquals(input, output);
+	}
+	
+	private static testMethod void testList(){
+		List<string> input = new List<string>{'s:1', 's,2', 's3'};
+		List<object> output = (List<object>)StringSerializer.Deserialize(StringSerializer.Serialize(input));
+		
+		system.assertEquals(input.size(), output.size());
+	}		
+
+	private static testMethod void testEmptyList(){
+		List<string> input = new List<string>();
+		List<object> output = (List<object>)StringSerializer.Deserialize(StringSerializer.Serialize(input));
+		
+		system.assertEquals(input.size(), output.size());
+	}		
+		
 }
