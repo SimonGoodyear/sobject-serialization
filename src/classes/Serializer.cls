@@ -1,4 +1,4 @@
 global interface Serializer{
-	string Serialize( sObject input );
-	sObject Deserialize( string input );
+	string Serialize( object input );
+	object Deserialize( string input );
 }
