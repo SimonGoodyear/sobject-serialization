@@ -1,5 +1,5 @@
 global class JSONSerializer implements Serializer{
-	
+	private static String namespace;
 	private static Map<string, List<Schema.DescribeFieldResult>> fields = new Map<string, List<Schema.DescribeFieldResult>>();
 	private static Map<String, Schema.SObjectType> objects = Schema.getGlobalDescribe( );
 	private static string objTypeField = 'objecttype';
@@ -32,6 +32,15 @@ global class JSONSerializer implements Serializer{
 		
 		if( input == null || input.length() < 5 )
 			return null;
+			
+		if(namespace == null) {
+			namespace = [Select NameSpacePrefix From ApexClass Where Name = 'JSONSerializer'].NameSpacePrefix;
+			if(namespace == null) namespace = '';
+		}
+		
+		if(namespace.length() > 0) {
+			input = input.remove(namespace + '__');	
+		}
 			
 		input = input.substring(2, input.length()-2);
 		
