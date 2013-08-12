@@ -1,10 +1,22 @@
 global class StringSerializer implements Serializer{
+	private static String namespace;
 	
 	global static string Serialize( sObject obj ){
 		return string.valueOf( obj );
 	}
 
 	global static sObject Deserialize( string input ){
+		if( input == null || input.length() == 0 )
+			return null;
+			
+		if(namespace == null) {
+			namespace = [Select NameSpacePrefix From ApexClass Where Name = 'StringSerializer'].NameSpacePrefix;
+			if(namespace == null) namespace = '';
+		}
+		
+		if(namespace.length() > 0) {
+			input = input.remove(namespace + '__');	
+		}
 		
 		Integer iEnd = input.indexOf( ':' );
 		if( iEnd == -1 )
